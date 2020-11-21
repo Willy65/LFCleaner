@@ -1,10 +1,10 @@
 /***************************************************************
  * Tool om LF karakters midden in de regel te verwijderen
- * (c) 2020 - Willy, Thales
+ * (c) 2020 - Willy,
  * Basisvariant voor WBS records.
  * Soms wordt midden in de omschrijving een LineFeed geplaatst
  * die proberen we te vinden.
- * Als er achter de LF de kreet "wbs_" staat, is het een echte
+ * Als er achter de LF de kreet "pattern" staat, is het een echte
  * LF, anders is het een foute LF en moeten we die weghalen
  ***************************************************************/
 //
