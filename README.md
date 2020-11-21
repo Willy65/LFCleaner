@@ -1,5 +1,5 @@
 # LFCleaner
-Utility to strip stray linefeeds from CSV records
+Utility to strip bogus linefeeds from CSV records
 
 We pass a lot of CSV data in the format of:
 
