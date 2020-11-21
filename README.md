@@ -25,3 +25,5 @@ pattern;<data_1>;<data_3>;<data_5>;<comment>;LF (linefeed)
 --
 This breaks the receiving end. It doesn't know how to deal with <com(LF)ment> instead of <comment>.
 This C utility can strip those bogus linefeeds, as long as every CSV record has a distinct heading.
+
+-- Please bear with me, all comments are in Dutch, I'll translate them :-)
