@@ -2,7 +2,7 @@
  * Tool to remove extra / stray linefeeds from a CSV file
  * (c) 2020, Willem Oldeman - Netherlands
  *
- * Often, CSV (comma seperated values) files contain a comment field,
+ * Often, CSV (comma separated values) files contain a comment field,
  * but users add linefeeds to this comment field.
  * Also, every line in the CSV file begins with <pattern>
  *
