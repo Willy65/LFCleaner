@@ -1,4 +1,6 @@
 /********************************************************************
+ * Code released under GNU General Public License v3.0
+ *
  * Tool to remove extra / stray linefeeds from a CSV file
  * (c) 2020, Willem Oldeman - Netherlands
  *
@@ -8,7 +10,7 @@
  *
  * This gives us a way to remove extra linefeeds, if it isn't
  * followed by <pattern> or if it is <end of file - EOF>
- ***************************************************************/
+ *******************************************************************/
 
 #include <stdlib.h>
 #include <stdio.h>
