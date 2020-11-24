@@ -9,7 +9,7 @@
  * This gives us a way to remove extra linefeeds, if it isn't
  * followed by <pattern> or if it is <end of file - EOF>
  ***************************************************************/
-//
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,10 +22,10 @@
 void print_help(void) {
 	// If too few or too many arguments are given, print help
 	printf("This tool replaces LineFeeds (0x0A)\n");
-	printf("if they are not followed by a pattern, e.g. \"wbs_\"\n");
-	printf("where \"wbs_\" indicates the beginning of the next record\n\n");
+	printf("if they are not followed by a pattern, e.g. \"pattern\"\n");
+	printf("where \"pattern\" indicates the beginning of the next record\n\n");
 	printf("Usage: LineFeedCleaner <filename> <pattern>\n\n");
-	printf("Example: LineFeedCleaner plfwbs_20201112_085640.csv wbs_\n");
+	printf("Example: LineFeedCleaner data_and_comments.csv pattern\n");
 }
 
 int get_filesize(const char *filename) {
@@ -42,8 +42,9 @@ int get_filesize(const char *filename) {
 
 int process_data(char *src_stream, char *dst_stream, char *pattern) {
 	// Here the processing takes place
-	// LF before end of file is accepted, LF before <pattern> is accepted.
-	// If not, the LF is discarded.
+	// LF before end of file is accepted, LF before LF is accepted (and discarded)
+	// LF before <pattern> is accepted.
+	// If not, the LF is discarded and returncode will be 1 (meaning error found).
 	int patlen, retcode, linecounter;
 	char *hptr;					// Help pointer
 
@@ -73,14 +74,14 @@ int process_data(char *src_stream, char *dst_stream, char *pattern) {
 					else {								// No, the next line doesn't start with <pattern>
 														// If so, we found a bogus linefeed
 						retcode = 1;					// Indicate that an error was found
-						src_stream++;					// Don't copy the LF, but do increment src_stream
+						src_stream++;					// Don't copy the LF, only increment src_stream
 						fprintf(stderr, "Bad Linefeed found at line %i\n", linecounter);
 					}
-				}		// if (*hptr == LF) else
-			}			// if (*hptr == LF)
-		}				// while (*src_stream != 0) else
-	}					// while (*src_stream != 0)
-	*dst_stream = 0;	// Zeker maken dat dst_stream een 0 terminator heeft
+				}
+			}
+		}
+	}
+	*dst_stream = 0;	// Make sure that dst_stream is terminated by 0
 	return retcode;
 }
 
@@ -97,36 +98,41 @@ int main(int argc, char *argv[]) {
 	}
 
 	filesize = get_filesize(argv[1]);	// Get filesize
-	if (filesize == -1) {				// File can't be opened, end.
-		fprintf(stderr, "Error: Cannot open file\n");	// File can't be opened, exit with error.
-		return EXIT_FAILURE;
+	if (filesize == -1) {				// File can't be opened?
+		fprintf(stderr, "Error: Cannot open file\n");
+		return EXIT_FAILURE;			// Exit with error.
 	}
 
-	data_in = (char *) malloc(filesize + 1);	// Geheugen reserveren om de file in te lezen + \0 terminator
-	if (data_in == NULL) {						// Kunnen we geheugen krijgen?
+	data_in = (char *) malloc(filesize + 1);	// Allocate memory for reading input file
+	if (data_in == NULL) {						// Allocation problem?
 		fprintf(stderr, "Error: Memory allocation error for input\n");
-		return EXIT_FAILURE;					// Geen geheugen, einde oefening.
+		return EXIT_FAILURE;					// Exit with error.
 	}
 
-	data_out = (char *) malloc(filesize + 1);	// Geheugen reserveren om resultaat in weg te schrijven
-	if (data_out == NULL) {						// Kunnen we geheugen krijgen?
+	data_out = (char *) malloc(filesize + 1);	// Allocate memory for output
+	if (data_out == NULL) {						// Allocation problem?
 		fprintf(stderr, "Error: Memory allocation error for output\n");
-		return EXIT_FAILURE;					// Geen geheugen, einde oefening.
+		return EXIT_FAILURE;					// Exit with error.
 	}
 
-	fp = fopen(argv[1], "rb");					// File openen om te lezen
+	fp = fopen(argv[1], "r");					// Open file for reading
 	if (fp != NULL) {
-		fread(data_in, sizeof(char), filesize, fp);	// In 1 keer in het geheugen inlezen
-		data_in[filesize - 1] = 0;					// String afsluiten
-		fclose(fp);									// Input sluiten
+		fread(data_in, sizeof(char), filesize, fp);	// Read file into memory (as string)
+		data_in[filesize - 1] = 0;					// Make sure the string is terminated by 0
+		fclose(fp);									// Close input
 
-		result = process_data(data_in, data_out, argv[2]);	// Deze functie zoekt Linefeeds en verwijdert ze indien nodig
+		result = process_data(data_in, data_out, argv[2]);	// Search for bad linefeeds, fixed data is in dst_stream
 
 		printf("%s\n", data_out);
 	}
+	else {
+		result = EXIT_FAILURE;
+		fprintf(stderr, "Error: Cannot read file\n");
+	}
 
-	free(data_in);								// Geheugen teruggeven, input buffer
-	free(data_out);								// Geheugen teruggeven, output buffer
+	free(data_in);								// Free memory, input buffer
+	free(data_out);								// Free memory, output buffer
 
 	return result;
 }
+
