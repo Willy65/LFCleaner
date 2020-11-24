@@ -18,11 +18,13 @@
 #include <malloc.h>
 #include <sys/stat.h>
 
+#define VERSION	"0.1.0"	// Just to set a version number
 #define LF	0x0a	// To be replaced by a future release
 			// where it can be passed as an argument
 
 void print_help(void) {
 	// If too few or too many arguments are given, print help
+	printf("LFCleaner version %s\n\n", VERSION);
 	printf("This tool replaces LineFeeds (0x0A)\n");
 	printf("if they are not followed by a pattern, e.g. \"pattern\"\n");
 	printf("where \"pattern\" indicates the beginning of the next record\n\n");
