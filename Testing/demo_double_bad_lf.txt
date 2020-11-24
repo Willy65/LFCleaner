@@ -1,0 +1,8 @@
+pattern;<data_1><comment_a>;
+pattern;<data_2><comment_b>;
+pattern;<da
+ta_3><com
+ment_c>;
+
+pattern;<data_4><comment_d>;
+pattern;<data_5><comment_e>;
