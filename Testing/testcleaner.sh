@@ -1,5 +1,6 @@
 #!/bin/bash
-# Testscript voor LineFeedCleaner  om te testen in verschillende scenario's
+# Testscript for LineFeedCleaner.
+# Point PROGDIR to where LineFeedCleaner is installed
 #
 
 PROGDIR="../Release"
