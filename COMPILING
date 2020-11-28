@@ -1,0 +1,4 @@
+This code was built on Linux Debian, but is known to work on other Linux distro's.
+
+Compile using gcc like
+gcc -O3 -o LFCleaner lfcleaner.c
