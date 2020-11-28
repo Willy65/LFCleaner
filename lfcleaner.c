@@ -64,7 +64,7 @@ int process_data(char *src_stream, char *dst_stream, char *pattern) {
 			linecounter++;				// Increment linecounter (used for error logging)
 			hptr = src_stream + 1;			// Help pointer points to the next character
 			if (*hptr == 0) {			// Help pointer is 0: Found EOF (end of file)
-				*dst_stream++ = *src_stream++;	// EOF: copy the last LF
+				*dst_stream = *src_stream;	// EOF: copy the last LF
 			}
 			else {					// Help pointer <> 0, then look at the next line
 				if (*hptr == LF) {		// Does it start with LF?
