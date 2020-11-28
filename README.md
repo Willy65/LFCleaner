@@ -20,4 +20,6 @@ It doesn't know how to deal with [com(LF)ment-2] instead of [comment-2].<br>
 This C utility can strip those bogus linefeeds, as long as every CSV record has a distinct heading.<br>
 Exitcode = EXIT_FAILURE if a bogus linefeed is found.<br>
 
+Errors / warnings are sent to stderr.
+
 The output is the repaired input.
