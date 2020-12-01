@@ -11,7 +11,7 @@ pattern;[data_1];[data_3];[data_6];[comment-3];LF (linefeed)
 Every now and then, a user puts in an extra LF (linefeed) in the [comment] field like:<br>
 <pre>
 pattern;[data_1];[data_2];[data_4];[comment-1];LF (linefeed)
-pattern;[data_1];[data_2];[data_5];[comLF<br>ment-2];LF (linefeed)
+pattern;[data_1];[data_2];[data_5];[comLF (bogus linefeed in comment field) <br>ment-2];LF (linefeed)
 pattern;[data_1];[data_3];[data_6];[comment-3];LF (linefeed)
 </pre>
 
