@@ -1,3 +1,7 @@
+# Note:
+# Using linux 'awk' it is easy to determine the number of fields
+#      in a record.
+
 # LFCleaner
 Utility to strip bogus linefeeds from CSV records and outputs repaired data<br>
 We pass a lot of CSV data in the format of:<br>
